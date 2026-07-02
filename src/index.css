@@ -1,0 +1,167 @@
+/* ===================================================================
+   ONENEX STUDIO — GLOBAL DESIGN TOKENS
+   Palette: ink press / oxblood paper stock, warm cream, printer-ink orange
+   =================================================================== */
+
+:root {
+  /* Color — light paper-stock palette */
+  --ink: #241512;
+  --maroon: #f6e8dc;
+  --maroon-deep: #efdac7;
+  --paper: #faf6ee;
+  --paper-dim: #f0e6d5;
+  --card: #ffffff;
+  --accent: #e8542e;
+  --accent-dim: #c8431f;
+  --gold: #a9762b;
+  --muted: #7a675d;
+  --line: rgba(36, 21, 18, 0.13);
+  --shadow-ink: rgba(36, 21, 18, 0.14);
+
+  /* Type */
+  --font-display: "Fraunces", "Iowan Old Style", serif;
+  --font-echo: "Syne", "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "Space Mono", "IBM Plex Mono", monospace;
+
+  /* Layout */
+  --max-w: 1240px;
+  --gutter: clamp(1.25rem, 4vw, 4rem);
+  --radius: 6px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  line-height: 1.02;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 18px;
+  height: 1px;
+  background: var(--accent);
+}
+
+/* Echo-style section label */
+.echo-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+}
+
+.echo-eyebrow::before {
+  content: "";
+  width: 18px;
+  height: 1px;
+  background: var(--accent);
+}
+
+/* Focus visibility for accessibility */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Section rhythm */
+.section {
+  padding: clamp(4rem, 9vw, 8rem) 0;
+  position: relative;
+}
+
+.section-head {
+  max-width: 640px;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.section-head h2 {
+  font-size: clamp(2.2rem, 4.6vw, 3.6rem);
+  margin-top: 0.6rem;
+  color: var(--ink);
+}
+
+.section-head p {
+  margin-top: 1.1rem;
+  color: var(--muted);
+  font-size: 1.1rem;
+  line-height: 1.65;
+  letter-spacing: -0.005em;
+}

@@ -1,0 +1,103 @@
+.scene3d {
+  display: block;
+  pointer-events: none;
+  will-change: transform;
+  position: relative;
+}
+
+.scene3d--interactive {
+  pointer-events: auto;
+  cursor: grab;
+}
+
+.scene3d--interactive:active {
+  cursor: grabbing;
+}
+
+.scene3d canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* ---------- Loading State ---------- */
+.scene3d--loading {
+  background: var(--paper-dim);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.scene3d--loading::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    transparent 40%,
+    rgba(232, 84, 46, 0.05) 50%,
+    transparent 60%
+  );
+  background-size: 200% 200%;
+  animation: loading-shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes loading-shimmer {
+  0% {
+    background-position: -200% -200%;
+  }
+  100% {
+    background-position: 200% 200%;
+  }
+}
+
+.scene3d__loader {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--line);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: loader-spin 0.8s linear infinite;
+  z-index: 1;
+}
+
+@keyframes loader-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- Dark Mode ---------- */
+@media (prefers-color-scheme: dark) {
+  .scene3d--loading {
+    background: var(--card-dark, #1a1a1a);
+  }
+  
+  .scene3d__loader {
+    border-color: var(--line-dark, #333);
+    border-top-color: var(--accent);
+  }
+}
+
+/* ---------- Reduced Motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .scene3d--loading::before {
+    animation: none;
+  }
+  
+  .scene3d__loader {
+    animation: none;
+    border-color: var(--line);
+    border-top-color: var(--accent);
+  }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+  .scene3d {
+    pointer-events: none;
+  }
+}

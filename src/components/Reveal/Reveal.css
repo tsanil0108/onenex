@@ -1,0 +1,370 @@
+/* ===================================================================
+   REVEAL - Advanced Scroll Animations
+   =================================================================== */
+
+.reveal {
+  opacity: 0;
+  transition: all var(--duration, 0.7s) var(--easing, cubic-bezier(0.34, 1.56, 0.64, 1));
+  transition-delay: var(--delay, 0s);
+  will-change: transform, opacity, filter;
+}
+
+.reveal--visible {
+  opacity: 1;
+}
+
+/* ---------- Fade ---------- */
+.reveal--fade {
+  opacity: 0;
+}
+
+.reveal--fade.reveal--visible {
+  opacity: 1;
+}
+
+/* ---------- Slide Up ---------- */
+.reveal--slide-up {
+  transform: translateY(var(--distance, 30px));
+}
+
+.reveal--slide-up.reveal--visible {
+  transform: translateY(0);
+}
+
+/* ---------- Slide Down ---------- */
+.reveal--slide-down {
+  transform: translateY(calc(var(--distance, 30px) * -1));
+}
+
+.reveal--slide-down.reveal--visible {
+  transform: translateY(0);
+}
+
+/* ---------- Slide Left ---------- */
+.reveal--slide-left {
+  transform: translateX(var(--distance, 30px));
+}
+
+.reveal--slide-left.reveal--visible {
+  transform: translateX(0);
+}
+
+/* ---------- Slide Right ---------- */
+.reveal--slide-right {
+  transform: translateX(calc(var(--distance, 30px) * -1));
+}
+
+.reveal--slide-right.reveal--visible {
+  transform: translateX(0);
+}
+
+/* ---------- Scale ---------- */
+.reveal--scale {
+  transform: scale(0.8);
+  opacity: 0;
+}
+
+.reveal--scale.reveal--visible {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* ---------- Flip ---------- */
+.reveal--flip {
+  transform: perspective(600px) rotateY(40deg) scale(0.9);
+  opacity: 0;
+}
+
+.reveal--flip.reveal--visible {
+  transform: perspective(600px) rotateY(0deg) scale(1);
+  opacity: 1;
+}
+
+/* ---------- Rotate ---------- */
+.reveal--rotate {
+  transform: rotate(-10deg) scale(0.9);
+  opacity: 0;
+}
+
+.reveal--rotate.reveal--visible {
+  transform: rotate(0deg) scale(1);
+  opacity: 1;
+}
+
+/* ---------- Blur ---------- */
+.reveal--blur {
+  filter: blur(8px);
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.reveal--blur.reveal--visible {
+  filter: blur(0px);
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ---------- Glow ---------- */
+.reveal--glow {
+  opacity: 0;
+  filter: brightness(0.5) drop-shadow(0 0 20px rgba(232, 84, 46, 0));
+}
+
+.reveal--glow.reveal--visible {
+  opacity: 1;
+  filter: brightness(1) drop-shadow(0 0 30px rgba(232, 84, 46, 0.15));
+}
+
+/* ---------- 3D Tilt ---------- */
+.reveal--tilt {
+  transform: perspective(800px) rotateX(20deg) rotateY(-15deg) scale(0.9);
+  opacity: 0;
+}
+
+.reveal--tilt.reveal--visible {
+  transform: perspective(800px) rotateX(0deg) rotateY(0deg) scale(1);
+  opacity: 1;
+}
+
+/* ---------- Elastic ---------- */
+.reveal--elastic {
+  transform: translateY(var(--distance, 30px)) scale(0.9);
+  opacity: 0;
+  transition: all var(--duration, 0.8s) cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.reveal--elastic.reveal--visible {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+/* ---------- Stagger Children ---------- */
+.reveal--stagger > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all var(--duration, 0.6s) var(--easing, cubic-bezier(0.34, 1.56, 0.64, 1));
+  transition-delay: calc(var(--delay, 0s) + var(--stagger-delay, 0.08s) * var(--child-index, 0));
+}
+
+.reveal--stagger.reveal--visible > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- Slide with Fade ---------- */
+.reveal--slide-fade {
+  transform: translateY(var(--distance, 30px));
+  opacity: 0;
+  filter: blur(2px);
+}
+
+.reveal--slide-fade.reveal--visible {
+  transform: translateY(0);
+  opacity: 1;
+  filter: blur(0px);
+}
+
+/* ---------- Zoom ---------- */
+.reveal--zoom {
+  transform: scale(1.2);
+  opacity: 0;
+}
+
+.reveal--zoom.reveal--visible {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* ---------- Bounce ---------- */
+.reveal--bounce {
+  transform: translateY(var(--distance, 30px));
+  opacity: 0;
+  transition: all var(--duration, 0.7s) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.reveal--bounce.reveal--visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ---------- Fade with Direction ---------- */
+.reveal--fade-up {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.reveal--fade-up.reveal--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal--fade-down {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.reveal--fade-down.reveal--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal--fade-left {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.reveal--fade-left.reveal--visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal--fade-right {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.reveal--fade-right.reveal--visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ===================================================================
+   SPECIAL EFFECTS
+   =================================================================== */
+
+/* ---------- Wave Effect ---------- */
+.reveal--wave {
+  opacity: 0;
+  transform: translateY(30px) scale(0.9);
+  transition: all var(--duration, 0.7s) var(--easing, cubic-bezier(0.34, 1.56, 0.64, 1));
+  transition-delay: calc(var(--delay, 0s) + var(--wave-delay, 0.08s) * var(--child-index, 0));
+}
+
+.reveal--wave.reveal--visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* ---------- Shine Effect ---------- */
+.reveal--shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.reveal--shine::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transform: translateX(-100%);
+  transition: transform 1s ease;
+  pointer-events: none;
+}
+
+.reveal--shine.reveal--visible::before {
+  transform: translateX(100%);
+}
+
+/* ---------- Gradient Reveal ---------- */
+.reveal--gradient {
+  opacity: 0;
+  transform: translateY(20px);
+  background: linear-gradient(135deg, var(--accent), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transition: all var(--duration, 0.7s) var(--easing, cubic-bezier(0.34, 1.56, 0.64, 1));
+}
+
+.reveal--gradient.reveal--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===================================================================
+   RESPONSIVE
+   =================================================================== */
+
+@media (max-width: 768px) {
+  .reveal--flip {
+    transform: perspective(400px) rotateY(20deg) scale(0.95);
+  }
+  
+  .reveal--flip.reveal--visible {
+    transform: perspective(400px) rotateY(0deg) scale(1);
+  }
+  
+  .reveal--tilt {
+    transform: perspective(500px) rotateX(10deg) rotateY(-8deg) scale(0.95);
+  }
+  
+  .reveal--tilt.reveal--visible {
+    transform: perspective(500px) rotateX(0deg) rotateY(0deg) scale(1);
+  }
+}
+
+@media (max-width: 480px) {
+  .reveal--flip {
+    transform: perspective(300px) rotateY(15deg) scale(0.95);
+  }
+  
+  .reveal--flip.reveal--visible {
+    transform: perspective(300px) rotateY(0deg) scale(1);
+  }
+}
+
+/* ===================================================================
+   REDUCED MOTION
+   =================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+  
+  .reveal--glow {
+    filter: none !important;
+  }
+  
+  .reveal--shine::before {
+    display: none !important;
+  }
+  
+  .reveal--stagger > * {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  
+  .reveal--gradient {
+    -webkit-text-fill-color: inherit;
+  }
+}
+
+/* ===================================================================
+   DARK MODE ADJUSTMENTS
+   =================================================================== */
+
+@media (prefers-color-scheme: dark) {
+  .reveal--shine::before {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.05),
+      transparent
+    );
+  }
+  
+  .reveal--glow.reveal--visible {
+    filter: brightness(1) drop-shadow(0 0 30px rgba(232, 84, 46, 0.25));
+  }
+}

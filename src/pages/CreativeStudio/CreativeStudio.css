@@ -1,0 +1,239 @@
+/* ---------- Bento grid ---------- */
+.cs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 260px;
+  gap: 1.5rem;
+}
+
+/* Deliberate asymmetric composition — one tall anchor tile,
+   one wide top tile, and a filled-in bottom row. Every cell
+   in the 3x3 area is accounted for, no leftover gaps.
+   Placement lives on .cs-tile (the direct grid child) because
+   Reveal wraps .cs-card in its own div — grid-column/row only
+   works on the element that is actually a grid item. */
+.cs-tile--1 { grid-column: 1 / 2; grid-row: 1 / 3; }
+.cs-tile--2 { grid-column: 2 / 4; grid-row: 1 / 2; }
+.cs-tile--3 { grid-column: 2 / 3; grid-row: 2 / 3; }
+.cs-tile--4 { grid-column: 3 / 4; grid-row: 2 / 3; }
+.cs-tile--5 { grid-column: 1 / 3; grid-row: 3 / 4; }
+.cs-tile--6 { grid-column: 3 / 4; grid-row: 3 / 4; }
+
+/* The tile fills its grid cell; everything inside it (Reveal's
+   own wrapper, then the card) stretches to fill the tile. */
+.cs-tile {
+  position: relative;
+  height: 100%;
+}
+
+.cs-tile > * {
+  display: block;
+  height: 100%;
+}
+
+.cs-card {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: var(--card);
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.4s ease;
+}
+
+.cs-card:hover,
+.cs-card--hovered {
+  transform: translateY(-8px);
+  border-color: var(--color);
+  box-shadow: 0 25px 60px -15px var(--shadow-ink);
+}
+
+/* ---------- Full-bleed photo ---------- */
+.cs-card__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.04);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+  filter: saturate(0.95);
+}
+
+.cs-card:hover .cs-card__img,
+.cs-card--hovered .cs-card__img {
+  transform: scale(1.12);
+  filter: saturate(1.08);
+}
+
+.cs-card__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(20, 15, 12, 0.05) 0%,
+    rgba(20, 15, 12, 0.12) 45%,
+    rgba(20, 15, 12, 0.86) 100%
+  );
+}
+
+.cs-card__year {
+  position: absolute;
+  top: 1rem;
+  left: 1.1rem;
+  z-index: 1;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  color: rgba(253, 250, 246, 0.75);
+}
+
+.cs-card__icon {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.85rem;
+  z-index: 1;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: #fdfaf6;
+  background: var(--color);
+  border-radius: 50%;
+  box-shadow: 0 10px 24px -8px var(--shadow-ink);
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.cs-card:hover .cs-card__icon,
+.cs-card--hovered .cs-card__icon {
+  transform: scale(1.1) rotate(-12deg);
+}
+
+/* ---------- Label: always visible over the photo ---------- */
+.cs-card__label {
+  position: absolute;
+  left: 1.1rem;
+  right: 1.1rem;
+  bottom: 1rem;
+  z-index: 1;
+}
+
+.cs-card__category {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(253, 250, 246, 0.8);
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.cs-card__title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fdfaf6;
+  margin: 0;
+  line-height: 1.3;
+}
+
+/* Description + link fade in below the title on hover */
+.cs-card__hover-copy {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(6px);
+  transition: max-height 0.4s ease, opacity 0.35s ease, transform 0.35s ease,
+    margin-top 0.4s ease;
+}
+
+.cs-card:hover .cs-card__hover-copy,
+.cs-card--hovered .cs-card__hover-copy {
+  max-height: 6rem;
+  opacity: 1;
+  transform: translateY(0);
+  margin-top: 0.6rem;
+}
+
+.cs-card__hover-copy p {
+  margin: 0 0 0.6rem;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: rgba(253, 250, 246, 0.9);
+}
+
+.cs-card__view {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #fdfaf6;
+}
+
+.cs-card__view span {
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.cs-card:hover .cs-card__view span,
+.cs-card--hovered .cs-card__view span {
+  transform: translateX(4px);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .cs-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 240px;
+  }
+
+  .cs-tile--1 { grid-column: 1 / 3; grid-row: 1 / 2; }
+  .cs-tile--2 { grid-column: 1 / 2; grid-row: 2 / 3; }
+  .cs-tile--3 { grid-column: 2 / 3; grid-row: 2 / 3; }
+  .cs-tile--4 { grid-column: 1 / 3; grid-row: 3 / 4; }
+  .cs-tile--5 { grid-column: 1 / 2; grid-row: 4 / 5; }
+  .cs-tile--6 { grid-column: 2 / 3; grid-row: 4 / 5; }
+}
+
+@media (max-width: 560px) {
+  .cs-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 300px;
+    gap: 1.1rem;
+  }
+
+  .cs-tile--1,
+  .cs-tile--2,
+  .cs-tile--3,
+  .cs-tile--4,
+  .cs-tile--5,
+  .cs-tile--6 {
+    grid-column: 1 / 2;
+    grid-row: auto;
+  }
+
+  /* Always show the description on touch devices — there's no hover */
+  .cs-card__hover-copy {
+    max-height: 6rem;
+    opacity: 1;
+    transform: translateY(0);
+    margin-top: 0.6rem;
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .cs-card,
+  .cs-card__img,
+  .cs-card__icon,
+  .cs-card__hover-copy,
+  .cs-card__view span {
+    transition: none !important;
+  }
+}

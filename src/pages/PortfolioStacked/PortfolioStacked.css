@@ -1,0 +1,132 @@
+.ps-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.ps-item {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 1.2rem 1.5rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: var(--card);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.ps-item:hover {
+  transform: translateX(12px);
+  border-color: var(--color);
+  box-shadow: 0 10px 40px -12px var(--shadow-ink);
+}
+
+.ps-item--active {
+  border-color: var(--color);
+  box-shadow: 0 10px 40px -12px var(--shadow-ink);
+}
+
+.ps-item__number {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color);
+  opacity: 0.15;
+  min-width: 60px;
+  transition: all 0.3s ease;
+}
+
+.ps-item:hover .ps-item__number {
+  opacity: 0.4;
+  transform: scale(1.1);
+}
+
+.ps-item__content {
+  flex: 1;
+}
+
+.ps-item__title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0;
+}
+
+.ps-item__category {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+}
+
+.ps-item__year {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--muted);
+  opacity: 0.5;
+}
+
+.ps-item__arrow {
+  font-size: 1.2rem;
+  color: var(--color);
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ps-item:hover .ps-item__arrow,
+.ps-item--active .ps-item__arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.ps-item__bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--color);
+  transform: scaleY(0);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border-radius: 0 3px 3px 0;
+}
+
+.ps-item:hover .ps-item__bar,
+.ps-item--active .ps-item__bar {
+  transform: scaleY(1);
+}
+
+@media (max-width: 768px) {
+  .ps-item {
+    padding: 1rem 1.2rem;
+    gap: 1rem;
+  }
+  
+  .ps-item__number {
+    font-size: 1.5rem;
+    min-width: 40px;
+  }
+  
+  .ps-item__title {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .ps-item__year {
+    display: none;
+  }
+  
+  .ps-item__arrow {
+    display: none;
+  }
+}

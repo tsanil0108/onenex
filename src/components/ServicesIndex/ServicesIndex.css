@@ -1,0 +1,161 @@
+/* ===================================================================
+   SERVICES INDEX — editorial row list with a cursor-following preview.
+   Rows stay quiet by default; the description opens and the image
+   surfaces only on hover, so the resting state is pure typography.
+   =================================================================== */
+
+.services-index {
+  position: relative;
+  border-top: 1px solid var(--line);
+}
+
+.services-index__reg {
+  position: absolute;
+  top: -1px;
+  right: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.services-index__row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 64px 1fr auto 40px;
+  align-items: baseline;
+  gap: 1.5rem;
+  padding: clamp(1.6rem, 3vw, 2.4rem) 0.5rem;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+  color: var(--ink);
+  transition: padding 0.5s var(--ease), background 0.5s var(--ease);
+}
+
+.services-index__row:hover,
+.services-index__row--active {
+  padding-inline: 1.5rem;
+  background: var(--paper-dim);
+}
+
+.services-index__num {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+}
+
+.services-index__title {
+  margin: 0;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  line-height: 1.1;
+  transition: transform 0.5s var(--ease), color 0.4s var(--ease);
+}
+
+.services-index__row:hover .services-index__title,
+.services-index__row--active .services-index__title {
+  transform: translateX(10px);
+  color: var(--accent-dim);
+}
+
+.services-index__desc {
+  margin: 0;
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 0.95rem;
+  color: var(--muted);
+  opacity: 0;
+  transition: max-width 0.5s var(--ease), opacity 0.35s var(--ease);
+}
+
+.services-index__row:hover .services-index__desc,
+.services-index__row--active .services-index__desc {
+  max-width: 360px;
+  opacity: 1;
+}
+
+.services-index__arrow {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  color: var(--ink);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+  justify-self: end;
+}
+
+.services-index__row:hover .services-index__arrow,
+.services-index__row--active .services-index__arrow {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--accent);
+}
+
+/* Cursor-following preview */
+.services-index__preview {
+  position: absolute;
+  right: clamp(0.5rem, 3vw, 2rem);
+  width: 240px;
+  height: 300px;
+  transform: translateY(-50%);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 30px 70px -20px var(--shadow-ink);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s var(--ease), top 0.15s linear;
+  z-index: 4;
+}
+
+.services-index__preview--visible {
+  opacity: 1;
+}
+
+.services-index__preview img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.08);
+  transition: opacity 0.4s var(--ease), transform 0.6s var(--ease);
+}
+
+.services-index__preview img.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@media (max-width: 900px) {
+  .services-index__preview {
+    display: none;
+  }
+
+  .services-index__row {
+    grid-template-columns: 44px 1fr 28px;
+  }
+
+  .services-index__desc {
+    display: none;
+  }
+
+  .services-index__row:hover,
+  .services-index__row--active {
+    padding-inline: 0.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .services-index__row,
+  .services-index__title,
+  .services-index__desc,
+  .services-index__arrow,
+  .services-index__preview,
+  .services-index__preview img {
+    transition: none !important;
+  }
+}
